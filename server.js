@@ -8,6 +8,8 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+const SHEETS_WEBHOOK = 'https://script.google.com/macros/s/AKfycbznqRKC1zUgEM9NmOayHSgasVbdtVQFBTOCzcrjIdxWXbFQCNoOmCN5Y5arAbr5dqqO/exec';
+
 app.use(cors());
 app.use(express.json());
 
@@ -28,11 +30,20 @@ db.run(`CREATE TABLE IF NOT EXISTS rsvps (
 app.post('/rsvp', (req, res) => {
   const { first_name, last_name, email, phone, guests, dietary, message } = req.body;
   if (!first_name || !last_name || !email) return res.status(400).json({ error: 'Missing required fields' });
+
   db.run(
     `INSERT INTO rsvps (first_name, last_name, email, phone, guests, dietary, message) VALUES (?, ?, ?, ?, ?, ?, ?)`,
     [first_name, last_name, email, phone || null, guests || 1, dietary || null, message || null],
     function(err) {
       if (err) return res.status(500).json({ error: 'Database error' });
+
+      // Send to Google Sheets
+      fetch(SHEETS_WEBHOOK, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ first_name, last_name, email, phone, guests, dietary, message })
+      }).catch(err => console.error('Sheets error:', err));
+
       res.status(201).json({ success: true, id: this.lastID });
     }
   );
