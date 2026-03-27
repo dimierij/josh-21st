@@ -1,6 +1,6 @@
 // ─── CONFIG ────────────────────────────────────────────────────────────────
 // Update this to your backend URL once deployed (e.g. Railway)
-const API_URL = 'http://localhost:3000/rsvp';
+const API_URL = 'https://josh-21st-production.up.railway.app/rsvp';
 // ────────────────────────────────────────────────────────────────────────────
 
 // CONFETTI
