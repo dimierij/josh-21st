@@ -52,14 +52,14 @@
   <h2 class="section-title">Watch the invitation 🎬</h2>
   <p class="section-sub">Then scroll down to RSVP 👇</p>
 
-  <div class="video-wrap">
+  <div class="video-wrap vertical">
     <!--
       Drop your video file into the same folder as this HTML file.
       Rename it to "invite.mp4" (or update the src below to match your filename).
       Supported formats: .mp4, .webm, .mov
     -->
     <video
-      id="invite-video"
+      id="invite-video" onclick="this.requestFullscreen()"
       controls
       playsinline
       poster="poster.jpg"
