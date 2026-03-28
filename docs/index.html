@@ -149,4 +149,155 @@
 
 <script src="app.js"></script>
 </body>
+</html>TYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Josh's 21st 🎉</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<canvas id="confetti-canvas"></canvas>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <div class="badge">🎂 You're invited</div>
+  <h1 class="hero-name">
+    <span>Josh's</span>
+    <span>21st</span>
+  </h1>
+  <p class="hero-sub">The big one 🥂</p>
+
+  <div class="hero-details">
+    <div class="detail-pill"><span class="icon">📅</span> Friday, 10th April</div>
+    <div class="detail-pill"><span class="icon">🕕</span> From 6:00 PM</div>
+    <div class="detail-pill"><span class="icon">📍</span> 8 Conn Court, Darley VIC 3340</div>
+    
+  </div>
+
+  <div class="scroll-cta">
+    <a href="#video">Watch the invite ↓</a>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span>🎉 Josh's 21st</span><span>📅 10th April</span><span>🕕 6:00 PM</span><span>🥂 Celebrate good times</span><span>🎂 The big one</span>
+    <span>🎉 Josh's 21st</span><span>📅 10th April</span><span>🕕 6:00 PM</span><span>🥂 Celebrate good times</span><span>🎂 The big one</span>
+    <span>🎉 Josh's 21st</span><span>📅 10th April</span><span>🕕 6:00 PM</span><span>🥂 Celebrate good times</span><span>🎂 The big one</span>
+    <span>🎉 Josh's 21st</span><span>📅 10th April</span><span>🕕 6:00 PM</span><span>🥂 Celebrate good times</span><span>🎂 The big one</span>
+  </div>
+</div>
+
+<!-- VIDEO SECTION -->
+<section class="video-section" id="video">
+  <p class="section-label">First things first</p>
+  <h2 class="section-title">Watch the invitation 🎬</h2>
+  <p class="section-sub">Then scroll down to RSVP 👇</p>
+
+  <div class="video-wrap vertical">
+    <!--
+      Drop your video file into the same folder as this HTML file.
+      Rename it to "invite.mp4" (or update the src below to match your filename).
+      Supported formats: .mp4, .webm, .mov
+    -->
+    <video
+      id="invite-video" onclick="this.requestFullscreen()"
+      controls
+      playsinline
+      poster="poster.jpg"
+    >
+      <source src="invite.mp4" type="video/mp4" />
+      Your browser doesn't support HTML5 video.
+    </video>
+
+    <!-- Shown if video file isn't found yet -->
+    <div class="video-placeholder" id="video-placeholder">
+      <div class="placeholder-inner">
+        <span class="play-icon">▶</span>
+        <p>Invitation video coming soon!</p>
+        <small>Place your <code>invite.mp4</code> in the frontend folder</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-cta">
+    <a href="#rsvp">Watched it? RSVP below ↓</a>
+  </div>
+</section>
+
+<!-- RSVP SECTION -->
+<section class="rsvp-section" id="rsvp">
+  <p class="section-label">Don't miss out</p>
+  <h2 class="section-title">Are you coming? 👀</h2>
+  <p class="section-sub">Fill in your details below — takes 30 seconds!</p>
+
+  <div class="rsvp-card">
+    <div id="rsvp-form-wrap">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="fname">First name</label>
+          <input type="text" id="fname" placeholder="e.g. Sarah" />
+          <span class="error-msg" id="err-fname">Required</span>
+        </div>
+        <div class="form-group">
+          <label for="lname">Last name</label>
+          <input type="text" id="lname" placeholder="e.g. Jones" />
+          <span class="error-msg" id="err-lname">Required</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email address</label>
+        <input type="email" id="email" placeholder="you@email.com" />
+        <span class="error-msg" id="err-email">Please enter a valid email</span>
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Phone number <span class="opt">(optional)</span></label>
+        <input type="tel" id="phone" placeholder="+61 400 000 000" />
+      </div>
+
+      <div class="form-group">
+        <label>Number of guests (including you)</label>
+        <div class="counter-wrap">
+          <button class="counter-btn" id="dec-btn" type="button">−</button>
+          <span class="counter-val" id="counter-val">1</span>
+          <span class="counter-label" id="counter-label">just me!</span>
+          <button class="counter-btn" id="inc-btn" type="button">+</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="dietary">Dietary requirements <span class="opt">(optional)</span></label>
+        <input type="text" id="dietary" placeholder="e.g. Vegetarian, Gluten free…" />
+      </div>
+
+      <div class="form-group">
+        <label for="msg">Leave Josh a message 🎂 <span class="opt">(optional)</span></label>
+        <textarea id="msg" placeholder="Can't wait! 🥳"></textarea>
+      </div>
+
+      <button class="submit-btn" id="submit-btn" type="button">Count me in! 🎉</button>
+      <p class="form-status" id="form-status"></p>
+    </div>
+
+    <div class="success-state" id="success-state">
+      <div class="big-emoji">🎉</div>
+      <h3>You're on the list!</h3>
+      <p>See you on the 10th April. It's going to be a big one 🥂</p>
+    </div>
+  </div>
+</section>
+
+<script src="app.js"></script>
+</body>
 </html>
