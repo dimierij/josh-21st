@@ -174,3 +174,13 @@ if (playBtn && vidEl) {
     else if (vidEl.webkitEnterFullscreen) vidEl.webkitEnterFullscreen();
   });
 }
+
+// Mobile: use native fullscreen via webkitEnterFullscreen on play
+const vidMobile = document.getElementById('invite-video');
+if (vidMobile) {
+  vidMobile.addEventListener('play', () => {
+    if (vidMobile.webkitEnterFullscreen) {
+      vidMobile.webkitEnterFullscreen();
+    }
+  });
+}
