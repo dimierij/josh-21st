@@ -185,11 +185,7 @@ if (vidMobile) {
   });
 }
 
-// Disable pinch zoom on mobile
+// Disable pinch zoom on mobile only
 document.addEventListener('touchmove', (e) => {
   if (e.touches.length > 1) e.preventDefault();
 }, { passive: false });
-
-document.addEventListener('gesturestart', (e) => {
-  e.preventDefault();
-});
