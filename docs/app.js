@@ -149,3 +149,13 @@ document.getElementById('submit-btn').addEventListener('click', async () => {
     btn.textContent = 'Count me in! 🎉';
   }
 });
+
+// Fullscreen on play
+const vid = document.getElementById('invite-video');
+if (vid) {
+  vid.addEventListener('play', () => {
+    if (vid.requestFullscreen) vid.requestFullscreen();
+    else if (vid.webkitRequestFullscreen) vid.webkitRequestFullscreen();
+    else if (vid.webkitEnterFullscreen) vid.webkitEnterFullscreen();
+  });
+}
