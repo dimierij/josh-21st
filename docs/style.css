@@ -445,3 +445,13 @@ textarea { resize: vertical; min-height: 80px; }
   .form-row { grid-template-columns: 1fr; }
   .rsvp-card { padding: 1.5rem; }
 }
+
+/* Vertical video support */
+.video-wrap.vertical {
+  max-width: 380px;
+  aspect-ratio: 9/16;
+}
+
+.video-wrap video {
+  cursor: pointer;
+}
