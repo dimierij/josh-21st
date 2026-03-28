@@ -1,9 +1,7 @@
-// ─── CONFIG ────────────────────────────────────────────────────────────────
-// Update this to your backend URL once deployed (e.g. Railway)
+// ─── CONFIG ─────────────────────────────────────────────────────────────────
 const API_URL = 'https://josh-21st-production.up.railway.app/rsvp';
-// ────────────────────────────────────────────────────────────────────────────
 
-// CONFETTI
+// ─── CONFETTI ────────────────────────────────────────────────────────────────
 const canvas = document.getElementById('confetti-canvas');
 const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
@@ -40,18 +38,14 @@ function drawConfetti() {
     ctx.rotate(p.rot);
     ctx.fillStyle = p.color;
     if (p.shape === 'circle') {
-      ctx.beginPath();
-      ctx.arc(0, 0, p.r, 0, Math.PI * 2);
-      ctx.fill();
+      ctx.beginPath(); ctx.arc(0, 0, p.r, 0, Math.PI * 2); ctx.fill();
     } else {
       ctx.fillRect(-p.r, -p.r / 2, p.r * 2, p.r);
     }
     ctx.restore();
-    p.y += p.speed;
-    p.x += p.drift;
-    p.rot += p.rotSpeed;
+    p.y += p.speed; p.x += p.drift; p.rot += p.rotSpeed;
     if (p.burst) {
-      p.speed += 0.15; // gravity
+      p.speed += 0.15;
       if (p.y > canvas.height + 20) pieces.splice(i, 1);
     } else {
       if (p.y > canvas.height) { p.y = -10; p.x = Math.random() * canvas.width; }
@@ -61,22 +55,28 @@ function drawConfetti() {
 }
 drawConfetti();
 
-// VIDEO — show placeholder if file can't load
+// ─── VIDEO ───────────────────────────────────────────────────────────────────
 const video = document.getElementById('invite-video');
 const placeholder = document.getElementById('video-placeholder');
+const playBtn = document.getElementById('play-btn');
 
 video.addEventListener('error', () => {
   video.style.display = 'none';
   placeholder.style.display = 'flex';
+  if (playBtn) playBtn.style.display = 'none';
 });
 
-// If no src or src is empty, show placeholder immediately
-if (!video.querySelector('source')?.src || video.querySelector('source').src === window.location.href) {
-  video.style.display = 'none';
-  placeholder.style.display = 'flex';
+if (playBtn) {
+  playBtn.addEventListener('click', () => {
+    playBtn.style.display = 'none';
+    video.controls = true;
+    video.play();
+    if (video.webkitEnterFullscreen) video.webkitEnterFullscreen();
+    else if (video.requestFullscreen) video.requestFullscreen();
+  });
 }
 
-// GUEST COUNTER
+// ─── GUEST COUNTER ───────────────────────────────────────────────────────────
 let guestCount = 1;
 const counterVal = document.getElementById('counter-val');
 const counterLabel = document.getElementById('counter-label');
@@ -84,8 +84,8 @@ const counterLabel = document.getElementById('counter-label');
 function updateCounter() {
   counterVal.textContent = guestCount;
   if (guestCount === 1) counterLabel.textContent = 'just me!';
-  else if (guestCount === 2) counterLabel.textContent = 'me + 1 🫂';
-  else counterLabel.textContent = `me + ${guestCount - 1} others 🎉`;
+  else if (guestCount === 2) counterLabel.textContent = 'me + 1 \u{1F91D}';
+  else counterLabel.textContent = 'me + ' + (guestCount - 1) + ' others \u{1F389}';
 }
 
 document.getElementById('inc-btn').addEventListener('click', () => {
@@ -95,12 +95,11 @@ document.getElementById('dec-btn').addEventListener('click', () => {
   if (guestCount > 1) { guestCount--; updateCounter(); }
 });
 
-// FORM SUBMIT
+// ─── FORM SUBMIT ─────────────────────────────────────────────────────────────
 document.getElementById('submit-btn').addEventListener('click', async () => {
   const fname = document.getElementById('fname').value.trim();
   const lname = document.getElementById('lname').value.trim();
   const email = document.getElementById('email').value.trim();
-  const phone = document.getElementById('phone').value.trim();
   const dietary = document.getElementById('dietary').value.trim();
   const msg = document.getElementById('msg').value.trim();
 
@@ -117,7 +116,7 @@ document.getElementById('submit-btn').addEventListener('click', async () => {
   const btn = document.getElementById('submit-btn');
   const status = document.getElementById('form-status');
   btn.disabled = true;
-  btn.textContent = 'Sending…';
+  btn.textContent = 'Sending...';
   status.textContent = '';
 
   try {
@@ -128,7 +127,7 @@ document.getElementById('submit-btn').addEventListener('click', async () => {
         first_name: fname,
         last_name: lname,
         email,
-        phone: phone || null,
+        phone: null,
         guests: guestCount,
         dietary: dietary || null,
         message: msg || null
@@ -139,53 +138,16 @@ document.getElementById('submit-btn').addEventListener('click', async () => {
 
     document.getElementById('rsvp-form-wrap').style.display = 'none';
     document.getElementById('success-state').style.display = 'block';
-
-    // Burst confetti!
     for (let i = 0; i < 60; i++) pieces.push(randomPiece(true));
 
   } catch (err) {
-    status.textContent = '⚠️ Something went wrong — please try again.';
+    status.textContent = 'Something went wrong - please try again.';
     btn.disabled = false;
-    btn.textContent = 'Count me in! 🎉';
+    btn.textContent = 'Count me in!';
   }
 });
 
-// Fullscreen on play
-const vid = document.getElementById('invite-video');
-if (vid) {
-  vid.addEventListener('play', () => {
-    if (vid.requestFullscreen) vid.requestFullscreen();
-    else if (vid.webkitRequestFullscreen) vid.webkitRequestFullscreen();
-    else if (vid.webkitEnterFullscreen) vid.webkitEnterFullscreen();
-  });
-}
-
-// Custom play button → fullscreen
-const playBtn = document.getElementById('play-btn');
-const vidEl = document.getElementById('invite-video');
-
-if (playBtn && vidEl) {
-  playBtn.addEventListener('click', () => {
-    playBtn.style.display = 'none';
-    vidEl.controls = true;
-    vidEl.play();
-    if (vidEl.requestFullscreen) vidEl.requestFullscreen();
-    else if (vidEl.webkitRequestFullscreen) vidEl.webkitRequestFullscreen();
-    else if (vidEl.webkitEnterFullscreen) vidEl.webkitEnterFullscreen();
-  });
-}
-
-// Mobile: use native fullscreen via webkitEnterFullscreen on play
-const vidMobile = document.getElementById('invite-video');
-if (vidMobile) {
-  vidMobile.addEventListener('play', () => {
-    if (vidMobile.webkitEnterFullscreen) {
-      vidMobile.webkitEnterFullscreen();
-    }
-  });
-}
-
-// Disable pinch zoom on mobile only
+// ─── DISABLE PINCH ZOOM ──────────────────────────────────────────────────────
 document.addEventListener('touchmove', (e) => {
   if (e.touches.length > 1) e.preventDefault();
 }, { passive: false });
