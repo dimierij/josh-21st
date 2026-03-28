@@ -455,3 +455,31 @@ textarea { resize: vertical; min-height: 80px; }
 .video-wrap video {
   cursor: pointer;
 }
+
+/* Custom play button */
+.custom-play-btn {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+  background: rgba(0,0,0,0.3);
+  transition: background 0.2s;
+}
+
+.custom-play-btn:hover { background: rgba(0,0,0,0.15); }
+
+.custom-play-btn span {
+  width: 80px; height: 80px;
+  background: var(--yellow);
+  color: #000;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  padding-left: 6px;
+  box-shadow: 0 0 40px rgba(255,225,53,0.5);
+}

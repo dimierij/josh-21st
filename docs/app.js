@@ -159,3 +159,18 @@ if (vid) {
     else if (vid.webkitEnterFullscreen) vid.webkitEnterFullscreen();
   });
 }
+
+// Custom play button → fullscreen
+const playBtn = document.getElementById('play-btn');
+const vidEl = document.getElementById('invite-video');
+
+if (playBtn && vidEl) {
+  playBtn.addEventListener('click', () => {
+    playBtn.style.display = 'none';
+    vidEl.controls = true;
+    vidEl.play();
+    if (vidEl.requestFullscreen) vidEl.requestFullscreen();
+    else if (vidEl.webkitRequestFullscreen) vidEl.webkitRequestFullscreen();
+    else if (vidEl.webkitEnterFullscreen) vidEl.webkitEnterFullscreen();
+  });
+}
